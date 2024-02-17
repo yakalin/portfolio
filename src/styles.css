@@ -7,3 +7,7 @@
     border-radius: 25px;
     color: white
 }
+
+.container{
+    max-width: 71.25rem;
+}

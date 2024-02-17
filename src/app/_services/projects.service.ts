@@ -9,9 +9,9 @@ export class ProjectsService {
   projects: Project[] = [
     {id: 0, name: 'Sample Project', summary: 'This is my portfolio website.!', description: 'This is a website I made to showcase my projects and skills.', link: '//www.github.com', tags: [Tag.ANGULAR, Tag.R, Tag.ELASTICSEARCH], img: ['../../assets/portraet_Akalin.jpg']},
     {id: 1, name: 'Sample Project 2', summary: 'This is a different project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.SQL, Tag.JAVA, Tag.CSS], img: ['../../assets/img/portfolio.png']},
-    {id: 2, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']},
+    {id: 2, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.TYPESCRIPT, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']},
     {id: 3, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']},
-    {id: 4, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']},
+    {id: 4, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.TYPESCRIPT], img: ['../../assets/img/portfolio.png']},
     {id: 5, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']},
     {id: 6, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']},
     {id: 7, name: 'Sample Project 3', summary: 'This is another project', description: 'This is a website I made to showcase my projects and skills.', link: '', tags: [Tag.HTML, Tag.PYTHON, Tag.FASTAPI], img: ['../../assets/img/portfolio.png']}
@@ -29,5 +29,23 @@ export class ProjectsService {
       throw new Error('Project not found');
     }
     return project;
+  }
+
+  GetProjectsByFilter(filterTags: Tag[]) {
+    let filteredProject: Project[] = [];
+    this.projects.forEach(function (project) {
+      let foundAll = true;
+      filterTags.forEach(function (filterTag){
+        if (project.tags.includes(filterTag) == false) {
+          foundAll = false;
+        }
+      })
+
+      if (foundAll) {
+        filteredProject.push(project);
+      }
+    });
+
+    return filteredProject;
   }
 }

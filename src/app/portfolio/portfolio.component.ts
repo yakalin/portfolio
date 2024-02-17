@@ -12,11 +12,38 @@ import { ProjectsService } from '../_services/projects.service';
 export class PortfolioComponent implements OnInit{
   projects = {} as Project[];
 
+  isCollapsed: boolean = true;
+  typescript: boolean = false;
+  filtering: boolean = false;
+
   constructor(private titleService: Title, private projectsService: ProjectsService) {
     this.titleService.setTitle('Yusuf Akalin - Portfolio');
   }
 
   ngOnInit(): void {
       this.projects = this.projectsService.GetProjects();
+  }
+
+  Filter() {
+    let filterTags: Tag[] = [];
+
+    if(this.typescript) {
+      filterTags.push(Tag.TYPESCRIPT);
+    }
+
+    if(this.typescript) {
+      this.filtering = true;
+    }
+    else {
+      this.filtering = false;
+    }
+
+    this.projects = this.projectsService.GetProjectsByFilter(filterTags);
+  }
+
+  ResetFilters() {
+    this.typescript = false;
+    this.filtering = false;
+    this.projects = this.projectsService.GetProjects();
   }
 }
